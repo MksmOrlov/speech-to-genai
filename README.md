@@ -27,7 +27,7 @@ You need to create gemini api key. Use VPN if your country is not supported by g
 ## Run
 ```sh
 cd speech-to-genai/src
-python src/main.py # or uvicorn src.main:app
+python main.py # or uvicorn main:app
 ```
 Then open http://localhost:8000/docs and send any audio file with speech. You can find examples in src/speech-files.
 
