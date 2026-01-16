@@ -5,7 +5,7 @@ from fastapi.concurrency import run_in_threadpool
 from google import genai
 from google.genai.errors import APIError, ClientError
 
-from services.audio_ai_service_base import AudioAIService
+from src.services.audio_ai_service_base import AudioAIService
 
 logger = logging.getLogger(__name__)
 
@@ -39,12 +39,6 @@ class GeminiAudioService(AudioAIService):
                 detail=f"Internal server error during file upload: {str(e)}",
             )
 
-    def _cleanup_file(self, uploaded_file) -> None:
-        try:
-            self._client.files.delete(name=uploaded_file.name)
-        except Exception:
-            logger.warning(f"Failed to delete Gemini file {uploaded_file.name}")
-
     async def generate_answer_from_audio(self, input_file) -> str:
         try:
             uploaded_file = self._upload_audio_to_genai(input_file)
@@ -72,6 +66,3 @@ class GeminiAudioService(AudioAIService):
                 status_code=500,
                 detail=f"Internal server error during AI processing: {str(e)}",
             )
-        finally:
-            self._cleanup_file(uploaded_file)
-        return response.text
