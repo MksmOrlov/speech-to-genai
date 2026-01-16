@@ -1,8 +1,8 @@
 from google import genai
 
-from config import settings
-from services.gemini_audio_helper import GeminiAudioService
-from services.audio_ai_service_base import AudioAIService
+from src.config import settings
+from src.services.gemini_audio_helper import GeminiAudioService
+from src.services.audio_ai_service_base import AudioAIService
 
 
 def get_audio_service() -> AudioAIService:

@@ -11,6 +11,7 @@ I've decided to use components diagram to show main modules of the project and s
 ![Components diagram](/docs/speech-to-genai.drawio.png)
 
 ## Installation
+### Natively
 ```sh
 git clone git@github.com:MksmOrlov/speech-to-genai.git
 cd speech-to-genai
@@ -18,18 +19,30 @@ python -m venv venv
 source venv/bin/activate   # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
+### Using Docker
+```sh
+git clone git@github.com:MksmOrlov/speech-to-genai.git
+cd speech-to-genai
+docker build -t speech-to-genai .
+```
 
 ## Configuration
-To run this app you need .env configuration file. You can find an example in src/.env.example.
+To run this app you need .env configuration file. You can find an example in .env.example.
 
 You need to create gemini api key. Use VPN if your country is not supported by google gemini.
 
 ## Run
+### Natively
 ```sh
-cd speech-to-genai/src
-python main.py # or uvicorn main:app
+cd speech-to-genai
+uvicorn src.main:app # or python -m src.main
 ```
-Then open http://localhost:8000/docs and send any audio file with speech. You can find examples in src/speech-files.
+### Using Docker
+```sh
+cd speech-to-genai
+docker run --env-file .env -p 8000:8000 speech-to-genai
+```
+Then open http://localhost:8000/docs and send any audio file with speech. You can find examples in speech-files directory.
 
 ## Resources
 1. Fast audio recorder https://online-voice-recorder.com/ru/
